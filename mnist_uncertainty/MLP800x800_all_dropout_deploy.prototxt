@@ -1,0 +1,69 @@
+name: "MLP800x800_all_dropout_sampleTest"
+input: "data"
+input_dim: 10
+input_dim: 1
+input_dim: 28
+input_dim: 28
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "ip1"
+  inner_product_param {
+    num_output: 800
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "ip1"
+  top: "relu1"
+}
+layer {
+  name: "drop1"
+  type: "Dropout"
+  bottom: "relu1"
+  top: "drop1"
+  dropout_param {
+    dropout_ratio: 0.1
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "drop1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 800
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "ip2"
+  top: "relu2"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "relu2"
+  top: "drop2"
+  dropout_param {
+    dropout_ratio: 0.1
+  }
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "drop2"
+  top: "ip3"
+  inner_product_param {
+    num_output: 10
+  }
+}
+layer {
+  name: "softmax"
+  type: "Softmax"
+  bottom: "ip3"
+  top: "softmax"
+}

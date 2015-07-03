@@ -1,0 +1,115 @@
+name: "MLP1024x1024x1024x1024_tanh_2_dropout"
+input: "data"
+input_dim: 100
+input_dim: 1
+input_dim: 1
+input_dim: 1
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "data"
+  top: "ip1"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "tanh1"
+  type: "TanH"
+  bottom: "ip1"
+  top: "tanh1"
+}
+layer {
+  name: "drop1"
+  type: "Dropout"
+  bottom: "tanh1"
+  top: "drop1"
+  dropout_param {
+    dropout_ratio: 0.2
+    sample_weights_test: true
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "drop1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "tanh2"
+  type: "TanH"
+  bottom: "ip2"
+  top: "tanh2"
+}
+layer {
+  name: "drop2"
+  type: "Dropout"
+  bottom: "tanh2"
+  top: "drop2"
+  dropout_param {
+    dropout_ratio: 0.2
+    sample_weights_test: true
+  }
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "drop2"
+  top: "ip3"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "tanh3"
+  type: "TanH"
+  bottom: "ip3"
+  top: "tanh3"
+}
+layer {
+  name: "drop3"
+  type: "Dropout"
+  bottom: "tanh3"
+  top: "drop3"
+  dropout_param {
+    dropout_ratio: 0.2
+    sample_weights_test: true
+  }
+}
+layer {
+  name: "ip4"
+  type: "InnerProduct"
+  bottom: "drop3"
+  top: "ip4"
+  inner_product_param {
+    num_output: 1024
+  }
+}
+layer {
+  name: "tanh4"
+  type: "TanH"
+  bottom: "ip4"
+  top: "tanh4"
+}
+layer {
+  name: "drop4"
+  type: "Dropout"
+  bottom: "tanh4"
+  top: "drop4"
+  dropout_param {
+    dropout_ratio: 0.2
+    sample_weights_test: true
+  }
+}
+layer {
+  name: "ip5"
+  type: "InnerProduct"
+  bottom: "drop4"
+  top: "ip5"
+  inner_product_param {
+    num_output: 1
+  }
+}

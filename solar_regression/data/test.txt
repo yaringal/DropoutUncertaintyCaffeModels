@@ -1,0 +1,1 @@
+/scratch/home/Projects/caffe/examples/solar_regression/data/test.h5

@@ -1,0 +1,110 @@
+name: "LeNet_all_dropout"
+input: "data"
+input_dim: 100
+input_dim: 3
+input_dim: 32
+input_dim: 32
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  convolution_param {
+    num_output: 192
+    kernel_size: 5
+    stride: 1
+  }
+}
+layer {
+  name: "dropC1"
+  type: "Dropout"
+  bottom: "conv1"
+  top: "dropC1"
+  dropout_param {
+    dropout_ratio: 0.5
+    #sample_weights_test: true
+  }
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "dropC1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  convolution_param {
+    num_output: 192
+    pad: 2
+    kernel_size: 5
+  }
+}
+layer {
+  name: "dropC2"
+  type: "Dropout"
+  bottom: "conv2"
+  top: "dropC2"
+  dropout_param {
+    dropout_ratio: 0.5
+    #sample_weights_test: true
+  }
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "dropC2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "pool2"
+  top: "ip1"
+  inner_product_param {
+    num_output: 1000
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "ip1"
+  top: "relu1"
+}
+layer {
+  name: "drop1"
+  type: "Dropout"
+  bottom: "relu1"
+  top: "drop1"
+  dropout_param {
+    dropout_ratio: 0.5
+    #sample_weights_test: true
+  }
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "drop1"
+  top: "ip2"
+  inner_product_param {
+    num_output: 10
+  }
+}
+layer {
+  name: "softmax"
+  type: "Softmax"
+  bottom: "ip2"
+  top: "softmax"
+}
